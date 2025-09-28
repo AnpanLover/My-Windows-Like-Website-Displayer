@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draggable & Resizable Iframe</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="iframe-wrapper">
+    <div id="drag-handle">
+        Movable Iframe Window 
+        <span id="dimensions-display" style="float: right;"></span> 
+    </div>
+
+    <iframe src="https://www.wikipedia.org/" frameborder="0"></iframe>
+    
+    <div id="drag-overlay"></div>
+    <div class="resizer" id="resizer-br"></div>
+</div>
+
+
+    <script src="main.js"></script>
+</body>
+</html>
