@@ -3,44 +3,102 @@ body {
     min-height: 100vh;
     font-family: sans-serif;
     background-color: #f0f0f0;
+    /* Add space at the bottom for the fixed controls */
+    padding-bottom: 70px; 
 }
 
+/* --- TOP URL BAR --- */
+#url-bar-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #2c3e50; /* Dark background */
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    box-sizing: border-box;
+    z-index: 200; 
+}
+
+#url-input {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+#go-button {
+    padding: 8px 15px;
+    margin-left: 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#go-button:hover {
+    background-color: #2980b9;
+}
+
+
+/* --- IFRAME WINDOW WRAPPER (Movable/Resizable) --- */
 #iframe-wrapper {
     position: fixed;
-    top: 25px;       /* Starting position from the top */
-    left: 25px;      /* Starting position from the left */
-    width: 400px;
+    top: 70px;       /* Pushed down to clear the URL bar */
+    left: 50px;
+    width: 600px;
     height: 400px;
     border: 3px solid #3498db;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
     box-sizing: border-box; 
     background-color: white;
     z-index: 100;
-    /* Hide scrollbars if content overflows during resize */
     overflow: hidden; 
+    display: flex;             
+    flex-direction: column;    /* Stack handle, iframe, and status bar vertically */
 }
 
-/* NEW STYLES FOR THE DRAG HANDLE */
+/* --- DRAG HANDLE / TITLE BAR --- */
 #drag-handle {
     background-color: #3498db;
     color: white;
     padding: 8px 10px;
     cursor: move; /* Indicate that this area is for moving */
-    user-select: none; /* Prevent text selection while dragging */
+    user-select: none;
     font-weight: bold;
-    font-size: 12px;
-    text-align: left;
+    text-align: center;
+    flex-shrink: 0; /* Prevents shrinking */
 }
-/* -------------------------------- */
 
-#iframe-wrapper iframe {
-    /* The iframe needs to fill the remaining space below the handle */
+/* --- IFRAME CONTENT --- */
+#main-iframe {
     width: 100%;
-    /* Use calc() to subtract the handle's height */
-    height: calc(100% - 36px); /* 8px padding top + 8px padding bottom + 20px font/line height = ~36px */
+    height: 100%; 
+    flex-grow: 1; /* Grows to fill available space */
     display: block;
 }
 
+/* --- STATUS BAR (Internal Dimension Display) --- */
+#status-bar {
+    background-color: #2c3e50; /* Match the dark URL bar */
+    color: white;
+    padding: 5px;
+    font-size: 14px;
+    text-align: center; 
+    border-top: 1px solid #1abc9c;
+    flex-shrink: 0; /* Prevents shrinking */
+}
+
+#dimensions-display {
+    font-weight: bold;
+    letter-spacing: 0.5px; 
+}
+
+/* --- RESIZER HANDLE --- */
 .resizer {
     position: absolute;
     width: 20px;
@@ -51,9 +109,10 @@ body {
     bottom: -10px;
     cursor: nwse-resize; 
     z-index: 10; 
-    touch-action: none;
+    touch-action: none; /* Required for better mobile touch handling */
 }
 
+/* --- DRAG/RESIZE OVERLAY --- */
 #drag-overlay {
     position: absolute;
     top: 0;
@@ -62,18 +121,56 @@ body {
     height: 100%;
     background: transparent;
     display: none;
-    z-index: 5; 
+    z-index: 5; /* Z-index is below handle/resizer but above iframe */
 }
 
 .resizing #drag-overlay,
-.dragging #drag-overlay { /* Show overlay for both drag and resize */
+.dragging #drag-overlay {
     display: block;
 }
-/* In styles.css, add this new rule: */
-#dimensions-display {
-    font-size: 0.9em;
-    font-weight: bold;
-    margin-left: 10px; /* Separates it from the main title text */
-    opacity: 0.8; /* Subtle transparency */
+
+
+/* --- BOTTOM CONTROL BAR --- */
+#bottom-controls {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #2c3e50;
+    padding: 15px 10px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center; /* Center the control group */
+    align-items: center;
+    box-sizing: border-box;
+    z-index: 200;
 }
 
+#bottom-controls label {
+    color: white;
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+#bottom-controls input[type="number"] {
+    width: 70px;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 20px;
+    text-align: center;
+}
+
+#set-size-button {
+    padding: 8px 15px;
+    background-color: #1abc9c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#set-size-button:hover {
+    background-color: #16a085;
+}

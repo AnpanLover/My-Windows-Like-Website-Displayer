@@ -3,23 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Draggable & Resizable Iframe</title>
+    <title>Complete Draggable & Resizable Iframe Windows</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <div id="iframe-wrapper">
-    <div id="drag-handle">
-        Movable Iframe Window 
-        <span id="dimensions-display" style="float: right;"></span> 
+    
+    <div id="url-bar-container">
+        <input type="text" id="url-input" placeholder="Enter URL (e.g., https://www.wikipedia.org)">
+        <button id="go-button">Go</button>
     </div>
 
-    <iframe src="https://www.wikipedia.org/" frameborder="0"></iframe>
-    
-    <div id="drag-overlay"></div>
-    <div class="resizer" id="resizer-br"></div>
-</div>
+    <div id="iframe-wrapper">
+        <div id="drag-handle">
+            Movable Iframe Window 
+        </div>
 
+        <iframe id="main-iframe" src="about:blank" frameborder="0"></iframe> 
+        
+        <div id="drag-overlay"></div>
+        
+        <div class="resizer" id="resizer-br"></div>
+        
+        <div id="status-bar">
+            <span id="dimensions-display"></span>
+        </div>
+    </div>
+
+    <div id="bottom-controls">
+        <label for="set-width">Width (px):</label>
+        <input type="number" id="set-width" min="150" value="400">
+        
+        <label for="set-height">Height (px):</label>
+        <input type="number" id="set-height" min="100" value="400">
+        
+        <button id="set-size-button">Set Size</button>
+    </div>
 
     <script src="main.js"></script>
 </body>
